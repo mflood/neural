@@ -31,6 +31,9 @@ range_inputs:
                 "min": 0
                 "max": 500
             -
+                "min": 250
+                "max": 750
+            -
                 "min": 500
                 "max": 2000
             -
@@ -41,6 +44,9 @@ range_inputs:
                 "max": 2500
             -
                 "min": 2300
+                "max": 2700
+            -
+                "min": 2500
                 "max": 3000
             -
                 "min": 2800
