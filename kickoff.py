@@ -8,7 +8,7 @@ from data import Data
 
 from loghelper import init_logging
 
-init_logging(logging.DEBUG)
+init_logging(logging.INFO)
 logger = logging.getLogger("mesh")
 
 
@@ -21,7 +21,7 @@ with open(yaml_file, "r") as handle:
 
 model = Model()
 for target in config_dict["targets"]:
-    model.add_target(target)
+    model.add_target(target['name'], target['weight_adj'])
 
 for input_def in config_dict["inputs"]:
     input_name = input_def['name']

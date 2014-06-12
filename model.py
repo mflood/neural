@@ -36,7 +36,6 @@ class RangeInputNode(object):
                 mesh_node = item['node']
                 mesh_node.excite(self.weight_multiplier)
 
-
 class MeshNode(object):
 
     def __init__(self, name):
@@ -50,27 +49,11 @@ class MeshNode(object):
         return ret
 
     def prune(self):
-        sorted_list = sorted(self.output_links, key=lambda k: 0 - k.weight) 
-        have_greater_than = False
-        have_less_than = False
+        sorted_list = sorted(self.output_links, key=lambda k: 0 - k.emit_percent) 
         for link in sorted_list:
-            if link.weight > 0:
-                have_greater_than = True
-            if link.weight < 0:
-                have_less_than = True
+            if link.emit_percent < .15:
+                link.emit_percent = 0
 
-        if have_greater_than:
-            # just keep the positive ones
-            for link in sorted_list:
-                if link.weight < 0:
-                    link.weight *= .0001
-                else:
-                    link.weight *= .0001
-        elif have_less_than:
-            # rank em
-            for link in sorted_list:
-                link.weight *= .0001
-        
     def reset(self):
         for link in self.output_links:
             link.fire_state = 0
@@ -88,7 +71,7 @@ class Link(object):
         self.num_bad_fires = 0.0
         self.emit_percent = 0.0
         self.fire_state = 0.0
-        self.weight = 0
+        self.weight = 0.0
 
     def __repr__(self):
         ret = "target: %s fire: %s wt: %s" % (self.target_node.name, self.fire_state, self.emit_percent)
@@ -100,11 +83,18 @@ class Link(object):
         
 class TargetNode(object):
 
-    def __init__(self, name):
+    def __init__(self, name, weight_adj):
         self.name = name
+        self.weight_adj = weight_adj
         self.input_links = []
-        self.weight = 0
+        self.weight = 0.0
 
+    def reset(self):
+        self.weight = 0.0
+
+    def final_weight(self):
+
+        return self.weight * self.weight_adj
 
     def add_weight(self, weight):
         self.weight += weight
@@ -113,7 +103,6 @@ class TargetNode(object):
         for link in self.input_links:
             if link.fire_state:
                 link.num_good_fires += 1
-                link.weight = link.weight + 1
                 link.emit_percent = link.num_good_fires / (link.num_bad_fires + link.num_good_fires)
 
     def train_down(self):
@@ -121,7 +110,6 @@ class TargetNode(object):
             if link.fire_state:
                 link.num_bad_fires += 1
                 link.emit_percent = link.num_good_fires / (link.num_bad_fires + link.num_good_fires)
-                link.weight = link.weight - 1
 
 
 class Model(object):
@@ -139,7 +127,7 @@ class Model(object):
     
     def reset(self):
         for t_node in self.target_nodes:
-            t_node.weight = 0
+            t_node.reset()
         for m_node in self.mesh_nodes:
             m_node.reset()
 
@@ -157,10 +145,10 @@ class Model(object):
 
         return_list = []
         for node in self.target_nodes:
-            bit = {'target': node.name, 'value': node.weight}
+            bit = {'target': node.name, 'value': node.weight, 'adjusted_value': node.final_weight()}
             return_list.append(bit)
         
-        return_list = sorted(return_list, key=lambda k: 0 - k['value']) 
+        return_list = sorted(return_list, key=lambda k: 0 - k['adjusted_value']) 
         return return_list
 
     def train(self, input_set, target_value_name):
@@ -209,8 +197,8 @@ class Model(object):
             mesh_node.output_links.append(link)
             target_node.input_links.append(link)
 
-    def add_target(self, target_name):
-        target_node = TargetNode(target_name)
+    def add_target(self, target_name, weight_adj):
+        target_node = TargetNode(target_name, weight_adj)
         self.target_nodes.append(target_node)
         self._connect_target_node(target_node)
         
