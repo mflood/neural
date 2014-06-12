@@ -26,14 +26,15 @@ for target in config_dict["targets"]:
 for input_def in config_dict["inputs"]:
     input_name = input_def['name']
     values = input_def["values"]
-    weight_adj = input_def.get("weight_adj", 1)
-    model.add_input(input_name, values, weight_adj)
+    weight_adj = input_def.get("weight_adj", 1.0)
+    weight_add_dict = input_def.get("weight_add_dict", {})
+    model.add_input(input_name, values, weight_adj, weight_add_dict)
 
 if config_dict.get("range_inputs"):
     for input_def in config_dict["range_inputs"]:
         input_name = input_def['name']
         ranges = input_def['ranges']
-        weight_adj = input_def.get("weight_adj", 1)
+        weight_adj = input_def.get("weight_adj", 1.0)
         model.add_range_input(input_name, ranges, weight_adj)
 
 if args.explore:

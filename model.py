@@ -1,9 +1,10 @@
 
 class InputNode(object):
 
-    def __init__(self, name, weight_adj):
+    def __init__(self, name, weight_adj, weight_add_dict):
         self.name = name
-        self.weight_multiplier = 1
+        self.weight_multiplier = weight_adj
+        self.weight_add_dict = weight_add_dict
         self.value_mesh_node_dict = {}
 
     def __repr__(self):
@@ -15,13 +16,13 @@ class InputNode(object):
     def evaluate(self, value):
         if value in self.value_mesh_node_dict:
             mesh_node = self.value_mesh_node_dict[value]
-            mesh_node.excite(self.weight_multiplier)
+            mesh_node.excite(self.weight_multiplier, self.weight_add_dict)
 
 class RangeInputNode(object):
 
     def __init__(self, name, weight_adj):
         self.name = name
-        self.weight_multiplier = weight_adj
+        self.range_weight_multiplier = weight_adj
         self.range_mesh_node_list = []
 
     def __repr__(self):
@@ -34,13 +35,14 @@ class RangeInputNode(object):
         for item in self.range_mesh_node_list:
             if float(item['min']) <= float(value) and float(value) < float(item['max']):
                 mesh_node = item['node']
-                mesh_node.excite(self.weight_multiplier)
+                mesh_node.excite(self.range_weight_multiplier, item['weight_add_dict'])
 
 class MeshNode(object):
 
     def __init__(self, name):
         self.output_links = []
         self.name = name
+
     def __repr__(self):
         ret = ""
         ret += "msh %s:\n" % self.name
@@ -58,9 +60,12 @@ class MeshNode(object):
         for link in self.output_links:
             link.fire_state = 0
 
-    def excite(self, weight_multiplier):
+    def excite(self, weight_multiplier, weight_add_dict):
         for link in self.output_links:
-            link.fire(weight_multiplier)
+            weight_add = 0.0
+            if weight_add_dict and link.target_node.name == weight_add_dict['target']:
+                weight_add = weight_add_dict['value']
+            link.fire(weight_multiplier, weight_add)
 
 class Link(object):
 
@@ -77,9 +82,9 @@ class Link(object):
         ret = "target: %s fire: %s wt: %s" % (self.target_node.name, self.fire_state, self.emit_percent)
         return ret
 
-    def fire(self, weight_multiplier):
+    def fire(self, weight_multiplier, weight_add):
         self.fire_state = 1
-        self.target_node.add_weight(self.emit_percent * weight_multiplier)
+        self.target_node.add_weight((self.emit_percent * weight_multiplier) + weight_add)
         
 class TargetNode(object):
 
@@ -171,12 +176,13 @@ class Model(object):
             self._connect_mesh_node(mesh_node)
             info_dict = {'min': the_range['min'],
                          'max': the_range['max'],
+                         'weight_add_dict': the_range.get("weight_add_dict", {}),
                          'node': mesh_node,
                         }
             in_node.range_mesh_node_list.append(info_dict)
 
-    def add_input(self, name, value_list, weight_adj):
-        in_node = InputNode(name, weight_adj)
+    def add_input(self, name, value_list, weight_adj, weight_add):
+        in_node = InputNode(name, weight_adj, weight_add)
         self.input_node_dict[name] = in_node
         for value in value_list:
             mesh_node = MeshNode("%s=%s" % (name, value))

@@ -87,9 +87,15 @@ range_inputs:
             -
                 "min": 3700
                 "max": 3800
+                "weight_add":
+                    "target": "7"
+                    "value": 10.0
             -
                 "min": 3800
                 "max": 10000
+                "weight_add_dict":
+                    "target": "7"
+                    "value": 10.0
     -
         "name": "Aspect"
         "weight_adj": 1.0
