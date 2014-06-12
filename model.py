@@ -84,16 +84,19 @@ class Link(object):
     def __init__(self, source_node, target_node):
         self.source_node = source_node
         self.target_node = target_node
-        self.fire_state = 0
+        self.num_good_fires = 0.0
+        self.num_bad_fires = 0.0
+        self.emit_percent = 0.0
+        self.fire_state = 0.0
         self.weight = 0
 
     def __repr__(self):
-        ret = "target: %s fire: %s wt: %s" % (self.target_node.name, self.fire_state, self.weight)
+        ret = "target: %s fire: %s wt: %s" % (self.target_node.name, self.fire_state, self.emit_percent)
         return ret
 
     def fire(self, weight_multiplier):
         self.fire_state = 1
-        self.target_node.add_weight(self.weight * weight_multiplier)
+        self.target_node.add_weight(self.emit_percent * weight_multiplier)
         
 class TargetNode(object):
 
@@ -109,11 +112,15 @@ class TargetNode(object):
     def train_up(self):
         for link in self.input_links:
             if link.fire_state:
+                link.num_good_fires += 1
                 link.weight = link.weight + 1
+                link.emit_percent = link.num_good_fires / (link.num_bad_fires + link.num_good_fires)
 
     def train_down(self):
         for link in self.input_links:
             if link.fire_state:
+                link.num_bad_fires += 1
+                link.emit_percent = link.num_good_fires / (link.num_bad_fires + link.num_good_fires)
                 link.weight = link.weight - 1
 
 
@@ -207,10 +214,6 @@ class Model(object):
         self.target_nodes.append(target_node)
         self._connect_target_node(target_node)
         
-
-    def learn(self, row, target_name):
-        pass
-
 if __name__ == "__main__":
     mesh = Model()
     mesh.add_input("d1", [0,1])

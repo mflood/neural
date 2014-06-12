@@ -1,0 +1,517 @@
+comment: "Id,Elevation,Aspect,Slope,Horizontal_Distance_To_Hydrology,Vertical_Distance_To_Hydrology,Horizontal_Distance_To_Roadways,Hillshade_9am,Hillshade_Noon,Hillshade_3pm,Horizontal_Distance_To_Fire_Points,Wilderness_Area1,Wilderness_Area2,Wilderness_Area3,Wilderness_Area4,Soil_Type1,Soil_Type2,Soil_Type3,Soil_Type4,Soil_Type5,Soil_Type6,Soil_Type7,Soil_Type8,Soil_Type9,Soil_Type10,Soil_Type11,Soil_Type12,Soil_Type13,Soil_Type14,Soil_Type15,Soil_Type16,Soil_Type17,Soil_Type18,Soil_Type19,Soil_Type20,Soil_Type21,Soil_Type22,Soil_Type23,Soil_Type24,Soil_Type25,Soil_Type26,Soil_Type27,Soil_Type28,Soil_Type29,Soil_Type30,Soil_Type31,Soil_Type32,Soil_Type33,Soil_Type34,Soil_Type35,Soil_Type36,Soil_Type37,Soil_Type38,Soil_Type39,Soil_Type40,Cover_Type"
+target_key: "Cover_Type"
+targets:
+    - "1"
+    - "2"
+    - "3"
+    - "4"
+    - "5"
+    - "6"
+    - "7"
+range_inputs:
+    -
+        "name": "Elevation"
+        "weight_adj": 1
+        "ranges":
+            -
+                "min": 0
+                "max": 500
+            -
+                "min": 500
+                "max": 2500
+            -
+                "min": 1800
+                "max": 2500
+            -
+                "min": 2300
+                "max": 3000
+            -
+                "min": 2800
+                "max": 3500
+            -
+                "min": 3300
+                "max": 4000
+            -
+                "min": 3800
+                "max": 10000
+    -
+        "name": "Aspect"
+        "ranges":
+            -
+                "min": 0
+                "max": 60
+            -
+                "min": 50
+                "max": 120
+            -
+                "min": 110
+                "max": 180
+            -
+                "min": 170
+                "max": 240
+            -
+                "min": 230
+                "max": 300
+            -
+                "min": 290
+                "max": 360
+    -
+        "name": "Slope"
+        "weight_adj": 1
+        "ranges":
+            -
+                "min": 0
+                "max": 20
+            -
+                "min": 20
+                "max": 40
+            -
+                "min": 40
+                "max": 60
+            -
+                "min": 60
+                "max": 80
+            -
+                "min": 80
+                "max": 90
+    -
+        "name": "Horizontal_Distance_To_Hydrology"
+        "weight_adj": 1
+        "ranges":
+            -
+                "min": 0
+                "max": 300
+            -
+                "min": 300
+                "max": 600
+            -
+                "min": 600
+                "max": 900
+            -
+                "min": 900
+                "max": 1200
+            -
+                "min": 1200
+                "max": 1500
+    -
+        "name": "Vertical_Distance_To_Hydrology"
+        "weight_adj": 1
+        "ranges":
+            -
+                "min": -600
+                "max": -400
+            -
+                "min": -400
+                "max": -200
+            -
+                "min": -200
+                "max": 0
+            -
+                "min": 0
+                "max": 200
+            -
+                "min": 200
+                "max": 400
+            -
+                "min": 400
+                "max": 600
+    -
+        "name": "Horizontal_Distance_To_Roadways"
+        "weight_adj": 1
+        "ranges":
+            -
+                "min": 0
+                "max": 250
+            -
+                "min": 250
+                "max": 500
+            -
+                "min": 500
+                "max": 750
+            -
+                "min": 750
+                "max": 1000
+            -
+                "min": 1000
+                "max": 1500
+            -
+                "min": 1500
+                "max": 2000
+            -
+                "min": 2000
+                "max": 2500
+            -
+                "min": 2500
+                "max": 3000
+            -
+                "min": 3000
+                "max": 3500
+            -
+                "min": 3500
+                "max": 4000
+            -
+                "min": 4000
+                "max": 4500
+            -
+                "min": 4500
+                "max": 5000
+            -
+                "min": 5000
+                "max": 5500
+            -
+                "min": 5500
+                "max": 6000
+            -
+                "min": 6000
+                "max": 6500
+            -
+                "min": 6500
+                "max": 7000
+    -
+        "name": "Hillshade_9am"
+        "weight_adj": 1
+        "ranges":
+            -
+                "min": 0
+                "max": 10
+            -
+                "min": 10
+                "max": 25
+            -
+                "min": 25
+                "max": 50
+            -
+                "min": 50
+                "max": 75
+            -
+                "min": 75
+                "max": 100
+            -
+                "min": 100
+                "max": 150
+            -
+                "min": 150
+                "max": 200
+            -
+                "min": 200
+                "max": 300
+    -
+        "name": "Hillshade_Noon"
+        "ranges":
+            -
+                "min": 0
+                "max": 10
+            -
+                "min": 10
+                "max": 25
+            -
+                "min": 25
+                "max": 50
+            -
+                "min": 50
+                "max": 75
+            -
+                "min": 75
+                "max": 100
+            -
+                "min": 100
+                "max": 150
+            -
+                "min": 150
+                "max": 200
+            -
+                "min": 200
+                "max": 300
+    -
+        "name": "Hillshade_3pm"
+        "ranges":
+            -
+                "min": 0
+                "max": 10
+            -
+                "min": 10
+                "max": 25
+            -
+                "min": 25
+                "max": 50
+            -
+                "min": 50
+                "max": 75
+            -
+                "min": 75
+                "max": 100
+            -
+                "min": 100
+                "max": 150
+            -
+                "min": 150
+                "max": 200
+            -
+                "min": 200
+                "max": 300
+    -
+        "name": "Horizontal_Distance_To_Fire_Points"
+        "ranges":
+            -
+                "min": 0
+                "max": 500
+            -
+                "min": 500
+                "max": 1000
+            -
+                "min": 1000
+                "max": 1500
+            -
+                "min": 1500
+                "max": 2000
+            -
+                "min": 2000
+                "max": 2500
+            -
+                "min": 2500
+                "max": 3000
+            -
+                "min": 3000
+                "max": 3500
+            -
+                "min": 3500
+                "max": 4000
+            -
+                "min": 4000
+                "max": 4500
+            -
+                "min": 4500
+                "max": 5000
+            -
+                "min": 5000
+                "max": 5500
+            -
+                "min": 5500
+                "max": 6000
+            -
+                "min": 6000
+                "max": 6500
+            -
+                "min": 6500
+                "max": 7000
+inputs:
+    -
+        "name": "Wilderness_Area1"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Wilderness_Area2"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Wilderness_Area3"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Wilderness_Area4"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type1"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type2"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type3"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type4"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type5"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type6"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type7"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type8"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type9"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type10"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type11"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type12"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type13"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type14"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type15"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type16"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type17"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type18"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type19"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type20"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type21"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type22"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type23"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type24"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type25"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type26"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type27"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type28"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type29"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type30"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type31"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type32"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type33"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type34"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type35"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type36"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type37"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type38"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type39"
+        "weight_adj": 1
+        "values":
+            - "1"
+    -
+        "name": "Soil_Type40"
+        "weight_adj": 1
+        "values":
+            - "1"
